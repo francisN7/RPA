@@ -1,7 +1,8 @@
+from pathlib import Path
+
 import pandas as pd
 from file_picker_py import pick_files_blocking
-from pathlib import Path
-import os
+from utils import clear_terminal
 
 
 class Merger:
@@ -20,7 +21,7 @@ class Merger:
         mode = ""
         n = 0
         while mode not in ["1", "2"]:
-            self.__clear()
+            clear_terminal()
             if n == 0:
                 mode = input(
                     "Selecione o modo de mesclagem:"
@@ -92,16 +93,3 @@ class Merger:
         save_path = self.__file_paths[0].parent.joinpath("Merge.xlsx")
         self.__combined_df.to_excel(save_path, index=False)
         print(f"Planilhas unificadas e salvas em: {save_path}")
-
-    def __clear(self) -> None:  # Limpa o terminal
-        # Para Windows
-        if os.name == "nt":
-            os.system("cls")
-        # Para Mac e Linux
-        else:
-            os.system("clear")
-
-
-if __name__ == "__main__":
-    merger = Merger()
-    merger.run()

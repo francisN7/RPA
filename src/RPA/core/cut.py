@@ -1,9 +1,10 @@
 # ______Importações______:
-from file_picker_py import pick_file_blocking
 from math import ceil
 from pathlib import Path
+
 import pandas as pd
-import os
+from file_picker_py import pick_file_blocking
+from utils import clear_terminal
 
 
 # ______Cortador______:
@@ -14,7 +15,7 @@ class Cutter:
         self.__df: pd.DataFrame = None  # Dataframe original.
 
     def cut(self) -> None:  # Faz os recortes
-        self.__clear()  # Limpa o terminal
+        clear_terminal()  # Limpa o terminal
         print(":__________Recortar Planilhas__________:\n\n")
         self.__file_path = Path(
             pick_file_blocking()
@@ -54,7 +55,7 @@ class Cutter:
         if not Path.exists(output):  # Se a pasta não existir
             Path.mkdir(output)  # Cria a pasta
         for dataframe in self.__files:  # Para cada dataframe
-            self.__clear()
+            clear_terminal()
             print(":__________Recortar Planilhas__________:\n\n")
             new_path = Path.joinpath(
                 output, f"{self.__file_path.stem}_Recorte_{n}.xlsx"
@@ -63,18 +64,10 @@ class Cutter:
             print(f"Salvando...\n{new_path}")
             dataframe.to_excel(new_path, index=False, engine="xlsxwriter")  # Salva
 
-    def __clear(self) -> None:  # Limpa o terminal
-        # Para Windows
-        if os.name == "nt":
-            os.system("cls")
-        # Para Mac e Linux
-        else:
-            os.system("clear")
-
     def __lines(self) -> int:  # Retorna a quantidade de linhas
         lines = 0  # Quantidade de linhas
         while lines <= 0:  # Enquanto for menor ou igual a zero
-            self.__clear()  # Limpa o terminal
+            clear_terminal()  # Limpa o terminal
             print(":__________Recortar Planilhas__________:\n\n")
             try:  # Tenta receber um inteiro
                 question = "Quantas linhas por arquivo?"
@@ -86,11 +79,6 @@ class Cutter:
                     "Por favor, informe um número válido!! \
                     \nPressione Enter para continuar..."
                 )
-        self.__clear()  # Limpa o terminal
+        clear_terminal()  # Limpa o terminal
         print(":__________Recortar Planilhas__________:\n\n")
         return lines  # Retorna a quantidade de linhas
-
-
-if __name__ == "__main__":
-    cutter = Cutter()
-    cutter.cut()
