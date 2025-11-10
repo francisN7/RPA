@@ -1,0 +1,15 @@
+# ==============================
+# Configuração do projeto
+# ==============================
+
+[project]
+name = "RPA"
+version = "0.1.0"
+description = "RPA examples"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = []
+
+# Localização dos pacotes
+[tool.setuptools.packages.find]
+where = ["src"]
