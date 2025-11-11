@@ -14,8 +14,10 @@
 
 > Observação: Este projeto utiliza como gerenciador de bibliotecas e projetos Python a ferramenta UV, disponível em: https://docs.astral.sh/uv/getting-started/installation/
 
-## Conteúdo gerado automaticamente:
-
+## Conteúdo gerado automaticamente (UV):
+- `uv.lock` - Arquivo de lock (bloqueio) multiplataforma que contém as versões exatas e resolvidas de todas as dependências do projeto Python (incluindo subdependências).
+- `pyproject.toml` - arquivo de configuração baseado no formato TOML (Tom's Obvious, Minimal Language), que serve como um manifesto centralizado para metadados e configurações de ferramentas de um projeto Python (parcialmente gerenciado pelo UV, e parcialmente editado manualmente).
+- `python-version` - Arquivo de metadados que informa qual versão do interpretador Python foi usada para o projeto.
 ---
 
 ## Tecnologias e ferramentas sugeridas
