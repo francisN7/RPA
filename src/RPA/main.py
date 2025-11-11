@@ -49,5 +49,5 @@ class Menu:
 
 
 if __name__ == "__main__":
-    memu = Menu()
-    memu.run()
+    menu = Menu()
+    menu.run()
