@@ -25,7 +25,7 @@
 > Caso utilize UV como sugerido, todo o ambiente do projeto pode ser rapidamente reproduzido com o comando `uv sync`.
 
 - Python 3.10+
-- Bibliotecas: `file-picker-py>=0.2.0`, `pandas`, `openpyxl`, `xlsxwriter`.
+- Bibliotecas: `file-picker-py>=0.2.0`, `openpyxl>=3.1.5`, `pandas>=2.3.3`.
 - Ambiente virtual: `uv` ou outro de preferência.
 - Ferramentas adicionais (opcional): Git.
 
