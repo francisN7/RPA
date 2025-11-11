@@ -15,9 +15,11 @@
 > Observação: Este projeto utiliza como gerenciador de bibliotecas e projetos Python a ferramenta UV, disponível em: https://docs.astral.sh/uv/getting-started/installation/
 
 ## Conteúdo gerado automaticamente (UV):
+
 - `uv.lock` - Arquivo de lock (bloqueio) multiplataforma que contém as versões exatas e resolvidas de todas as dependências do projeto Python (incluindo subdependências).
 - `pyproject.toml` - arquivo de configuração baseado no formato TOML (Tom's Obvious, Minimal Language), que serve como um manifesto centralizado para metadados e configurações de ferramentas de um projeto Python (parcialmente gerenciado pelo UV, e parcialmente editado manualmente).
 - `python-version` - Arquivo de metadados que informa qual versão do interpretador Python foi usada para o projeto.
+
 ---
 
 ## Tecnologias e ferramentas sugeridas
@@ -36,27 +38,35 @@
 1. Ter Python instalado (3.10+. Recomendado >= 3.14).
 2. Criar e ativar um ambiente virtual:
 
+## Como executar
+
+Baixe manualmente a partir do repositório, ou via git clone:
+
+```
+git clone https://github.com/francisN7/RPA.git
+```
+
+#### Criando e sicronizando um novo ambiente virtual com as configurações e dependências do projeto.
+
 Seguindo a sugestão de utilizar UV:
 
 ```
 uv sync
 ```
 
-#### Cria e sicroniza um novo ambiente virtual com as configurações e dependências do projeto.
+Após, estando com terminal aberto no diretório do projeto:
 
----
+```
+uv run ./src/rpa/main.py
+```
 
-## Como executar
-
-1. A
+> Caso opte por utilizar outro gerenciador de projetos, os passos de sicronização, instalação e ativação do ambiente virtual podem ser diferentes.
 
 ---
 
 ## Arquitetura e fluxo do robô
 
-1. **Input** — Arquivos/planilhas ou leitura via web.
-2. **Processamento** — Normalização, validação e transformação dos dados.
-3. **Ação** — Preenchimento de formulários, geração de relatórios, envio de e-mails ou atualização de sistema.
-4. **Output** — Arquivos gerados, logs e relatório de execução.
-
-Inclua logs claros e arquivos de saída com marca temporal para garantir rastreabilidade.
+1. **Menu** — Escolha da rotina desejada.
+2. **Input** — Seleção dos arquivos a serem processados.
+3. **Ação** — O código executa a rotina selecionada anteriormente.
+4. **Output** — Arquivos gerados, e salvos.
