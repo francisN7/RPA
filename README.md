@@ -40,10 +40,14 @@
 
 ## Como executar
 
-Baixe manualmente a partir do repositório, ou via git clone:
+Baixe manualmente a partir do repositório, ou via git clone (estando em ambiente de terminal):
 
 ```
 git clone https://github.com/francisN7/RPA.git
+```
+Após entre no diretório correto:
+```
+cd RPA
 ```
 
 #### Criando e sicronizando um novo ambiente virtual com as configurações e dependências do projeto.
