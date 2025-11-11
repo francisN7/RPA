@@ -1,8 +1,8 @@
 from pathlib import Path
+from time import sleep
 
 import pandas as pd
 from file_picker_py import pick_files_blocking
-from utils import clear_terminal
 
 
 class Merger:
@@ -17,34 +17,11 @@ class Merger:
         except Exception as e:
             print(f"Erro ao selecionar arquivos: {e}")
 
-        ## Modos de mesclagem:
-        mode = ""
-        n = 0
-        while mode not in ["1", "2"]:
-            clear_terminal()
-            if n == 0:
-                mode = input(
-                    "Selecione o modo de mesclagem:"
-                    "\n1. Mesclar primeira aba de cada planilha."
-                    "\n2. Mesclar todas as abas de uma planilha.\n"
-                )
-                n = 1
-            else:
-                mode = input(
-                    "Opção inválida. Por favor, selecione novamente:"
-                    "\n1. Mesclar primeira aba de cada planilha."
-                    "\n2. Mesclar todas as abas de uma planilha.\n"
-                )
-
         ## Considerando vários arquivos:
         try:
-            if mode == "1":
-                self.__extract_dataframes()
-            ## Considerando várias abas de uma planilha:
-            elif mode == "2":
-                self.__extract_dataframes_one_sheet()
+            self.__extract_dataframes()
         except Exception as e:
-            print(f"Erro ao ler planilhas: {e}")
+            print(f"Erro ao ler dataframes: {e}")
 
         try:
             self.__treat_dataframes()
@@ -54,12 +31,12 @@ class Merger:
         try:
             self.__merge_dataframes()
         except Exception as e:
-            print(f"Erro ao mesclar planilhas: {e}")
+            print(f"Erro ao mesclar dataframes: {e}")
 
         try:
             self.__save()
         except Exception as e:
-            print(f"Erro ao salvar planilha: {e}")
+            print(f"Erro ao salvar dataframes: {e}")
 
     def __select_files(self) -> None:
         for path in pick_files_blocking():
@@ -73,12 +50,10 @@ class Merger:
 
     def __extract_dataframes(self) -> None:
         for file in self.__file_paths:
-            df = pd.read_excel(file)
-            self.__dataframes.append(df)
-
-    def __extract_dataframes_one_sheet(self) -> None:
-        sheets_dict = pd.read_excel(self.__file_paths[0], sheet_name=None)
-        for df in sheets_dict.values():
+            try:
+                df = pd.read_excel(file)
+            except ValueError:
+                df = pd.read_csv(file)
             self.__dataframes.append(df)
 
     def __treat_dataframes(self) -> None:
@@ -90,6 +65,7 @@ class Merger:
         self.__combined_df = pd.concat(self.__dataframes, ignore_index=True, sort=False)
 
     def __save(self) -> None:
-        save_path = self.__file_paths[0].parent.joinpath("Merge.xlsx")
-        self.__combined_df.to_excel(save_path, index=False)
-        print(f"Planilhas unificadas e salvas em: {save_path}")
+        save_path = self.__file_paths[0].parent.joinpath("Merge.csv")
+        self.__combined_df.to_csv(save_path, index=False)
+        print(f"Dataframes unificados e salvos em: {save_path}")
+        sleep(2)

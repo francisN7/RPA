@@ -16,12 +16,12 @@ class Cutter:
 
     def cut(self) -> None:  # Faz os recortes
         clear_terminal()  # Limpa o terminal
-        print(":__________Recortar Planilhas__________:\n\n")
+        print(":__________Recortar Dataframes__________:\n\n")
         self.__file_path = Path(
             pick_file_blocking()
         ).absolute()  # Define o diretório do arquivo
         self.__files = []  # Limpa a lista de arquivos
-        print("Carregando a planilha selecionada...")
+        print("Carregando a  dataframe selecionado...")
         self.__load_df()  # Carrega o dataframe original
         lines = self.__lines()  # Linhas por arquivo
         n = ceil(len(self.__df) / lines)  # Número de arquivos necessários
@@ -35,9 +35,13 @@ class Cutter:
         self.__save_files()
 
     def __load_df(self) -> None:  # Carrega o Dataframe original
-        first_df = pd.read_excel(self.__file_path)
+        try:
+            first_df = pd.read_excel(self.__file_path)
+        except ValueError:
+            first_df = pd.read_csv(self.__file_path)
         for col in first_df.columns:
             first_df[col] = first_df[col].apply(
+                # Correção de caracteres especiais em arquivos.xlsx
                 lambda x: x.replace("_x000D__x000A_", "\n")
                 .replace("_x000A__x000D_", "\n")
                 .replace("_x000D_", "\n")
@@ -56,19 +60,19 @@ class Cutter:
             Path.mkdir(output)  # Cria a pasta
         for dataframe in self.__files:  # Para cada dataframe
             clear_terminal()
-            print(":__________Recortar Planilhas__________:\n\n")
+            print(":__________Recortar Dataframes__________:\n\n")
             new_path = Path.joinpath(
-                output, f"{self.__file_path.stem}_Recorte_{n}.xlsx"
+                output, f"{self.__file_path.stem}_Recorte_{n}.csv"
             )  # Gera o nome do arquivo
             n += 1  # Aumenta o contador
             print(f"Salvando...\n{new_path}")
-            dataframe.to_excel(new_path, index=False, engine="xlsxwriter")  # Salva
+            dataframe.to_csv(new_path, index=False)
 
     def __lines(self) -> int:  # Retorna a quantidade de linhas
         lines = 0  # Quantidade de linhas
         while lines <= 0:  # Enquanto for menor ou igual a zero
             clear_terminal()  # Limpa o terminal
-            print(":__________Recortar Planilhas__________:\n\n")
+            print(":__________Recortar Dataframes__________:\n\n")
             try:  # Tenta receber um inteiro
                 question = "Quantas linhas por arquivo?"
                 lines = int(
@@ -80,5 +84,5 @@ class Cutter:
                     \nPressione Enter para continuar..."
                 )
         clear_terminal()  # Limpa o terminal
-        print(":__________Recortar Planilhas__________:\n\n")
+        print(":__________Recortar Dataframes__________:\n\n")
         return lines  # Retorna a quantidade de linhas

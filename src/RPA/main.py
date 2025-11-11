@@ -4,12 +4,14 @@ from core import Cutter, Merger
 from utils import clear_terminal
 
 
+# cli incial para interação com a automação:
 class Menu:
     def __init__(self):
+        # Opcões para o menu:
         self.options = ["Recortar Dataframes", "Mesclar Dataframes"]
-        self.option = ""
 
     def run(self) -> None:
+        # Loop de exibição do menu:
         while True:
             clear_terminal()
             for i, option in enumerate(self.options):
